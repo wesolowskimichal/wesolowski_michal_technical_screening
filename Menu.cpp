@@ -30,8 +30,7 @@ void Menu::show_menu() {
 		add_phone();
 		break;
 	case 2:
-		std::cout << "not implemented bcs of time\n";
-		system("pause");
+		delete_phone();
 		show_menu();
 		break;
 	case 3:
@@ -70,6 +69,50 @@ void Menu::add_phone() {
 	show_menu();
 }
 
+
+void Menu::delete_phone() {
+	clear_console();
+	std::string brand_name, model_name, form_factor;
+	unsigned int year_of_issue, screen_width, screen_height;
+	double price;
+	std::cout << "Delete phone:\n\n";
+	std::cout << "Insert phone's brand name: ";
+	std::cin.get();
+	std::getline(std::cin, brand_name);
+	std::cout << "Insert phone's model name: ";
+	std::getline(std::cin, model_name);
+	std::cout << "Insert phone's form factor: ";
+	std::getline(std::cin, form_factor);
+	std::cout << "Insert phone's year of issue: ";
+	std::cin >> year_of_issue;
+	std::cout << "Insert phone's screen width: ";
+	std::cin >> screen_width;
+	std::cout << "Insert phone's screen height: ";
+	std::cin >> screen_height;
+	std::cout << "Insert phone's price: ";
+	std::cin >> price;
+	bool f{};
+	for (int i{}; i < phones.size(); i++) {
+		if (phones[i]->get_brand_name() == brand_name &&
+			phones[i]->get_model_name() == model_name &&
+			phones[i]->get_form_factor() == form_factor &&
+			phones[i]->get_year_of_issue() == year_of_issue &&
+			phones[i]->get_screen_size().first == screen_width &&
+			phones[i]->get_screen_size().second == screen_height &&
+			phones[i]->get_price() == price) {
+				phones.erase(phones.begin() + i); 
+				f = 1; 
+				break;
+			}
+	}
+	if (f)
+		std::cout << "Deleted phone\n";
+	else
+		std::cout << "Phone not found\n";
+	system("pause");
+	show_menu();
+	
+}
 
 void Menu::reports() {
 	clear_console();
